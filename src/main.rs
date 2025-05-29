@@ -1,22 +1,29 @@
-//定数定義
-const SIZE: usize = 10;
-
 fn main() {
-    //[初期値;要素数]
-    let mut a = [0; SIZE];
-
-    for i in 1..=10 {
-        a[i - 1] = i;
-    }
-
-    // クロージャー let 名前 = |引数| 定義;
-    let double = |x:& usize| *x * 2;
-
-    //iter_mut()は可変可能なイテレータを返す(今回は&mut usizeと解釈される)
-    //C言語のようなポインタと拡張for文の組み合わせ技
-    for n in a.iter_mut(){
-        *n = double(n);
-    }
+    // 可変配列
+    let a = vec![1, 2, 3];
 
     println!("{:?}", a);
+
+    // 空の可変配列
+    let mut b: Vec<usize> = Vec::new();
+
+    for i in 1..10 {
+        //末尾に追加
+        b.push(i);
+    }
+
+    println!("{:?}", b);
+    //指定したインデックスを削除
+    let c = b.remove(0);
+    //末尾を削除 unwrapは空のときはクラッシュするので注意 unwrap_or(値)で空のときのケースを記述可能
+    let d = b.pop().unwrap();
+    //インデックス, 値
+    b.insert(3, 10);
+
+    println!("{:?}", b);
+    //remove, popは戻り値を受け取れる
+    println!("{}, {}", c, d);
+    //インデックス指定で取得可能
+    println!("{}", b[2]);
+    //その他sort(),reverse(),contains(値)など用意されている
 }
