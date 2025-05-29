@@ -1,29 +1,28 @@
 fn main() {
     // 可変配列
-    let a = vec![1, 2, 3];
+    let mut s = String::new();
 
-    println!("{:?}", a);
 
-    // 空の可変配列
-    let mut b: Vec<usize> = Vec::new();
+    std::io::stdin().read_line(&mut s).expect("入力エラー");
+    println!();
 
-    for i in 1..10 {
-        //末尾に追加
-        b.push(i);
-    }
+    let mut num: usize;
+    num = s.trim().parse().expect("変換エラー");
+    println!("{}", num);
 
-    println!("{:?}", b);
-    //指定したインデックスを削除
-    let c = b.remove(0);
-    //末尾を削除 unwrapは空のときはクラッシュするので注意 unwrap_or(値)で空のときのケースを記述可能
-    let d = b.pop().unwrap();
-    //インデックス, 値
-    b.insert(3, 10);
+    //クロージャーを使うことで短縮できる
+    let scan = |str: &mut String| {
+        std::io::stdin().read_line(str).expect("入力エラー");
+    };
 
-    println!("{:?}", b);
-    //remove, popは戻り値を受け取れる
-    println!("{}, {}", c, d);
-    //インデックス指定で取得可能
-    println!("{}", b[2]);
-    //その他sort(),reverse(),contains(値)など用意されている
+    // 単語をつなげるときは_でつなげる
+    let parse_int =
+        |str: &String| -> usize { str.trim().parse::<usize>().expect("変換エラー") 
+    };
+
+    let mut s2 = String::new();
+    scan(&mut s2);
+    let num2 = parse_int(&s2);
+    num += num2;
+    println!("{}", num);
 }
